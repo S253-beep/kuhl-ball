@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Für Kuhl</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6f0;
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 18px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #ff4d4d;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="question">
+        Kuhl, willst du mit mir auf den Ball gehen? 💃🕺
+    </h1>
+
+    <button id="yesBtn">Ja</button>
+    <button id="noBtn">Nein</button>
+    <br>
+    <img id="happyImg" src="kuhl_happy.png" alt="Happy Kuhl" style="display: none; width: 300px; border-radius: 15px; margin-top: 20px;">
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+        const question = document.getElementById("question");
+        const happyImg = document.getElementById("happyImg");
+
+        let messages = [
+            "Bist du dir sicher? Ich bin ja der Goat",
+            "Wirklich sicher?? ",
+            "Überleg nochmal…",
+            "Ich frag nur ein letztes Mal ",
+            "Du willst doch eigentlich ja sagen",
+            "Komm schon Kuhl",
+            "Uhhh bitte?",
+            "Letzte Chance!!!"
+        ];
+
+        let index = 0;
+
+        noBtn.addEventListener("click", () => {
+
+            if (index < messages.length) {
+                noBtn.innerText = messages[index];
+                index++;
+            }
+
+            // shrink NO button safely
+            let newScale = Math.max(0.2, 1 - index * 0.1);
+            noBtn.style.transform = `scale(${newScale})`;
+
+            // grow YES button
+            yesBtn.style.transform = `scale(${1 + index * 0.2})`;
+
+            // fade out + disappear
+            if (index >= messages.length) {
+                noBtn.style.transition = "opacity 0.5s";
+                noBtn.style.opacity = "0";
+
+                setTimeout(() => {
+                    noBtn.style.display = "none";
+                }, 500);
+            }
+        });
+
+        yesBtn.addEventListener("click", () => {
+            question.innerText = "Super! Ich freue mich Kuhl!";
+            yesBtn.style.display = "none";
+            noBtn.style.display = "none";
+            happyImg.style.display = "block";
+            happyImg.style.margin = "20px auto";
+        });
+
+    </script>
+
+</body>
+
+</html>
